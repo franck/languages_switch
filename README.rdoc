@@ -1,0 +1,26 @@
+= Languages Switch
+
+Adapted from Oleg Zhurbiy's locales_switch plugin : http://github.com/olkeene/locales_switch/tree/master
+
+Add locales switching in your application when using Globalize::Backend
+
+It is required to set I18n.load_path.locales in config/inizializers/locale.rb :
+  I18n.load_path.locales = ["fr", "de"]
+  
+
+Make sure you have a logged_in? method define somewhere:
+  # in app/controller/application_controller.rb
+  def logged_in?
+	  false
+  end
+
+Then, in your view, you can create a language box :
+  <% if available_locales.size > 1 %>
+  <div id="language">
+  <% available_locales.each do |language_code| -%>
+    <%= link_to language_code, "?#{locale_identifier}=#{language_code}", {:class => "#{language_code}" } %>
+  <% end -%>
+  </div>
+  <% end -%>
+  
+  
