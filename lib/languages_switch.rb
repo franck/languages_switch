@@ -12,7 +12,7 @@ module LanguagesSwitch
     protected
     
     def set_locale
-      locale = params[LOCALE_IDENTIFIER] || session[LOCALE_IDENTIFIER] || (current_user.send(LOCALE_IDENTIFIER) if logged_in?) || I18n.default_locale
+      locale = params[LOCALE_IDENTIFIER] || session[LOCALE_IDENTIFIER] || I18n.default_locale
       session[LOCALE_IDENTIFIER] = I18n.locale = locale
     end
     
