@@ -12,13 +12,14 @@ module LanguagesSwitch
     protected
     
     def set_locale
-      locale = params[LOCALE_IDENTIFIER] || session[LOCALE_IDENTIFIER] || I18n.default_locale
-      session[LOCALE_IDENTIFIER] = I18n.locale = locale
+      # preferred_language_from method come from this plugin : git://github.com/iain/http_accept_language.git
+      I18n.locale = params[:locale] || request.preferred_language_from(available_locales) || I18n.default_locale
     end
     
     def available_locales
-      I18n.load_path.locales
+      I18n.backend.available_locales
     end
+    
   end
   
   module Helper
@@ -27,7 +28,7 @@ module LanguagesSwitch
     end
     
     def available_locales
-      I18n.load_path.locales
+      I18n.backend.available_locales
     end
   end
   
